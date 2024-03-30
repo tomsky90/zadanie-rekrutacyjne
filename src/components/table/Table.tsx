@@ -33,7 +33,7 @@ const TableComponent = () => {
   ];
 
   const handlechangepage = (
-    event: React.MouseEvent<HTMLButtonElement> | null,
+    _event: React.MouseEvent<HTMLButtonElement> | null,
     newpage: number
   ) => {
     pagechange(newpage);
