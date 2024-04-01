@@ -11,10 +11,12 @@ import { setData } from "./redux/tagsSlice";
 function App() {
   const dispatch = useDispatch();
 
+  //fetch data
   const { data, loading, error } = useFetch(
     `/2.3/tags?order=desc&sort=popular&site=stackoverflow`
   );
 
+  //update global state
   useEffect(() => {
     if (data) {
       dispatch(setData(data));
