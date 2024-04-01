@@ -1,4 +1,6 @@
 import { useState } from "react";
+import type { RootState } from "../../redux/store";
+import { useSelector } from "react-redux";
 import {
   Paper,
   TableContainer,
@@ -10,20 +12,21 @@ import {
   TablePagination,
 } from "@mui/material";
 import Spinner from "../spinner/Spinner";
-import useFetch from "../../hooks/useFetch";
+
 import ErrorMessage from "../errorMessage.tsx/ErrorMessage";
 
-interface Tag {
+type Tag = {
   name: string;
   count: number;
-  [key: string]: unknown;
+};
+
+interface TableComponentProps {
+  loading: boolean;
+  error: boolean;
 }
 
-const TableComponent = () => {
-  const { data, loading, error } = useFetch(
-    `/2.3/tags?order=desc&sort=popular&site=stackoverflow`
-  );
-
+const TableComponent: React.FC<TableComponentProps> = ({ loading, error }) => {
+  const { items } = useSelector((state: RootState) => state.tags);
   const [page, pagechange] = useState(0);
   const [rowperpage, rowperpagechange] = useState(5);
 
@@ -48,13 +51,13 @@ const TableComponent = () => {
     <div>
       {loading && <Spinner />}
       {error && <ErrorMessage />}
-      {data && (
+      {items.length > 1 && (
         <Paper>
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             rowsPerPage={rowperpage}
             page={page}
-            count={data.length}
+            count={items.length}
             component="div"
             onPageChange={handlechangepage}
             onRowsPerPageChange={handleRowsPerPage}
@@ -74,15 +77,12 @@ const TableComponent = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {data
+                {items
                   .slice(page * rowperpage, page * rowperpage + rowperpage)
-                  .map((item: Tag, i: number) => (
+                  .map((tag: Tag, i: number) => (
                     <TableRow key={i}>
-                      {columns.map((column, j) => (
-                        <TableCell key={j}>
-                          {item[column.id] as string}
-                        </TableCell>
-                      ))}
+                      <TableCell>{tag.name}</TableCell>
+                      <TableCell>{tag.count}</TableCell>
                     </TableRow>
                   ))}
               </TableBody>

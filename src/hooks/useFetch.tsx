@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import { makeRequest } from "../axiosSetup.tsx";
 
 export type Tags = {
-  name: string;
-  count: number;
+  items: {
+    name: string;
+    count: number;
+  }[];
 };
 
 const useFetch = (url: string) => {
-  const [data, setData] = useState<Tags[] | null>();
+  const [data, setData] = useState<Tags>();
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
 
@@ -16,7 +18,7 @@ const useFetch = (url: string) => {
       try {
         setLoading(true);
         const res = await makeRequest.get(url);
-        setData(res.data.items);
+        setData(res.data);
       } catch (err) {
         setError(true);
       }
