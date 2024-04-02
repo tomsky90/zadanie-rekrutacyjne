@@ -1,21 +1,14 @@
-import Table from "../components/table/Table";
 import React, { ReactNode } from "react";
 import { Provider } from "react-redux";
-
 import { configureStore, createSlice } from "@reduxjs/toolkit";
+
+import Table from "../components/table/Table";
 
 export const MockedState = {
   items: [
     { name: "js", count: 1212 },
     { name: "php", count: 654654 },
-    { name: "js", count: 1212 },
-    { name: "php", count: 654654 },
-    { name: "js", count: 1212 },
-    { name: "php", count: 654654 },
-    { name: "js", count: 1212 },
-    { name: "php", count: 654654 },
-    { name: "js", count: 1212 },
-    { name: "php", count: 654654 },
+    // Additional mocked state items...
   ],
 };
 
@@ -51,9 +44,14 @@ export default {
   excludeStories: /.*MockedState$/,
 };
 
+// Define the type for the 'story' parameter explicitly
+type StoryFunction = () => ReactNode;
+
 export const Default = {
   decorators: [
-    (story) => <Mockstore initialState={MockedState}>{story()}</Mockstore>,
+    (story: StoryFunction) => (
+      <Mockstore initialState={MockedState}>{story()}</Mockstore>
+    ),
   ],
 };
 
@@ -62,7 +60,9 @@ export const Loading = {
     loading: true,
   },
   decorators: [
-    (story) => <Mockstore initialState={MockedState}>{story()}</Mockstore>,
+    (story: StoryFunction) => (
+      <Mockstore initialState={MockedState}>{story()}</Mockstore>
+    ),
   ],
 };
 
@@ -71,6 +71,8 @@ export const Error = {
     error: true,
   },
   decorators: [
-    (story) => <Mockstore initialState={MockedState}>{story()}</Mockstore>,
+    (story: StoryFunction) => (
+      <Mockstore initialState={MockedState}>{story()}</Mockstore>
+    ),
   ],
 };
