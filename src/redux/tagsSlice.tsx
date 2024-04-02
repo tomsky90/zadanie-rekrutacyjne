@@ -8,7 +8,7 @@ export interface Tags {
   }[];
 }
 
-const initialState: Tags = { items: [] };
+const initialState: Tags = { items: [{ name: "js", count: 155151 }] };
 
 export const tagsSlice = createSlice({
   name: "tags",

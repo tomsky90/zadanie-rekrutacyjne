@@ -1,7 +1,7 @@
 const ErrorMessage = () => {
   return (
     <div>
-      <h2>Przepraszamy Wystapil problem, sproboj opniwnie pozniej</h2>
+      <h2>Przepraszamy, wystąpił problem. Spróbuj ponownie później</h2>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import "./spinner.css";
 
-const Spiner = () => {
+const Spinner = () => {
   return (
     <div className="spinner-wrapper">
       <div className="spinner"></div>
@@ -9,4 +9,4 @@ const Spiner = () => {
   );
 };
 
-export default Spiner;
+export default Spinner;

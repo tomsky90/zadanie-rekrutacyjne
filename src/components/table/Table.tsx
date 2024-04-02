@@ -27,6 +27,7 @@ interface TableComponentProps {
 
 const TableComponent: React.FC<TableComponentProps> = ({ loading, error }) => {
   const { items } = useSelector((state: RootState) => state.tags);
+
   const [page, pagechange] = useState(0);
   const [rowperpage, rowperpagechange] = useState(5);
 
@@ -51,7 +52,7 @@ const TableComponent: React.FC<TableComponentProps> = ({ loading, error }) => {
     <div>
       {loading && <Spinner />}
       {error && <ErrorMessage />}
-      {items.length > 1 && (
+      {items.length > 1 && !loading && !error && (
         <Paper>
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
